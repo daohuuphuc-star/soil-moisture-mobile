@@ -25,7 +25,6 @@
       ]
     },
     "plugins": [
-      "react-native-ble-plx",
       [
         "expo-build-properties",
         {
