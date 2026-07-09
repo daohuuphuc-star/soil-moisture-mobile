@@ -11,8 +11,6 @@
       },
       "package": "com.yourname.soilmoisture",
       "permissions": [
-        "BLUETOOTH",
-        "BLUETOOTH_ADMIN",
         "BLUETOOTH_SCAN",
         "BLUETOOTH_CONNECT",
         "ACCESS_FINE_LOCATION",
@@ -20,14 +18,7 @@
       ]
     },
     "plugins": [
-      [
-        "react-native-ble-plx",
-        {
-          "isBackgroundEnabled": false,
-          "modes": ["central"],
-          "bluetoothAlwaysPermission": "Cho phép ứng dụng dùng Bluetooth để kết nối với ESP32"
-        }
-      ]
+      "react-native-ble-plx"
     ]
   }
 }
