@@ -6,9 +6,9 @@ const firebaseConfig = {
   authDomain:        "esp32-dodoam.firebaseapp.com",
   databaseURL:       "https://esp32-dodoam-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId:         "esp32-dodoam",
-  storageBucket:     "esp32-dodoam.appspot.com",
-  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? "",
-  appId:             process.env.EXPO_PUBLIC_FIREBASE_APP_ID ?? "",
+  storageBucket:     "esp32-dodoam.firebasestorage.app",
+  messagingSenderId: "471349585287",
+  appId:             "1:471349585287:web:f8660aed5fce12bb3f9f22",
 };
 
 const app = initializeApp(firebaseConfig);
