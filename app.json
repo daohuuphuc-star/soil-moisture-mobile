@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Soil Moisture Monitor",
+    "slug": "soil-moisture-monitor",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#1a5276"
+      },
+      "package": "com.yourname.soilmoisture",
+      "permissions": [
+        "BLUETOOTH",
+        "BLUETOOTH_ADMIN",
+        "BLUETOOTH_SCAN",
+        "BLUETOOTH_CONNECT",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "plugins": [
+      [
+        "react-native-ble-plx",
+        {
+          "isBackgroundEnabled": false,
+          "modes": ["central"],
+          "bluetoothAlwaysPermission": "Cho phép ứng dụng dùng Bluetooth để kết nối với ESP32"
+        }
+      ]
+    ]
+  }
+}
