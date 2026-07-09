@@ -99,8 +99,9 @@ export default function BluetoothScreen() {
     }
 
     setStatus('scanning');
+    let found = false;
     bleManager.startDeviceScan(
-      [BLE_SERVICE_UUID],  // chỉ quét thiết bị có service UUID này
+      null,  // quét tất cả thiết bị BLE (không lọc UUID để tránh miss trên Android)
       { allowDuplicates: false },
       async (error: BleError | null, device: Device | null) => {
         if (error) {
@@ -109,6 +110,7 @@ export default function BluetoothScreen() {
           return;
         }
         if (device && (device.name === DEVICE_NAME || device.localName === DEVICE_NAME)) {
+          found = true;
           bleManager.stopDeviceScan();
           await connectToDevice(device);
         }
@@ -117,10 +119,15 @@ export default function BluetoothScreen() {
 
     // Tự dừng quét sau 15 giây
     setTimeout(() => {
-      if (status === 'scanning') {
-        bleManager.stopDeviceScan();
-        setStatus('error');
-        setErrorMsg(`Không tìm thấy "${DEVICE_NAME}". Đảm bảo ESP32 đang bật.`);
+      bleManager.stopDeviceScan();
+      if (!found) {
+        setStatus((cur) => {
+          if (cur === 'scanning') {
+            setErrorMsg(`Không tìm thấy "${DEVICE_NAME}". Đảm bảo ESP32 đang bật.`);
+            return 'error';
+          }
+          return cur;
+        });
       }
     }, 15000);
   }, [status]);
