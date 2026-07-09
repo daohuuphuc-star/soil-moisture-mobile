@@ -187,13 +187,20 @@ export default function BluetoothScreen() {
 
   // ── Đẩy dữ liệu lên Firebase ─────────────────────
   const pushToFirebase = async (data: BleReading) => {
+    // Dùng đồng hồ điện thoại để tránh timestamp sai từ ESP32 (BLE-only mode)
+    const phoneTimestamp = (() => {
+      const d = new Date();
+      const pad = (n: number) => String(n).padStart(2, '0');
+      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}` +
+             `T${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    })();
     try {
       await set(ref(db, '/soil-moisture/latest'), {
-        ...data, unit: 'percent',
+        ...data, timestamp: phoneTimestamp, unit: 'percent',
       });
       await push(ref(db, '/soil-moisture/history'), {
         moisture:  data.moisture,
-        timestamp: data.timestamp,
+        timestamp: phoneTimestamp,
       });
       setSyncCount(c => c + 1);
     } catch (e: any) {
